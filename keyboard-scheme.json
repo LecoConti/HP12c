@@ -1,0 +1,322 @@
+[
+  {
+    "position": "1,1",
+    "color": "black",
+    "mainFunction": "n",
+    "f_secondaryFunction": "12x",
+    "g_secondaryFunction": "AMORT",
+    "isEnterKey": false
+  },
+  {
+    "position": "1,2",
+    "color": "black",
+    "mainFunction": "i",
+    "f_secondaryFunction": "12÷",
+    "g_secondaryFunction": "INT",
+    "isEnterKey": false
+  },
+  {
+    "position": "1,3",
+    "color": "black",
+    "mainFunction": "PV",
+    "f_secondaryFunction": "CFo",
+    "g_secondaryFunction": "NPV",
+    "isEnterKey": false
+  },
+  {
+    "position": "1,4",
+    "color": "black",
+    "mainFunction": "PMT",
+    "f_secondaryFunction": "CFj",
+    "g_secondaryFunction": "RND",
+    "isEnterKey": false
+  },
+  {
+    "position": "1,5",
+    "color": "black",
+    "mainFunction": "FV",
+    "f_secondaryFunction": "Nj",
+    "g_secondaryFunction": "IRR",
+    "isEnterKey": false
+  },
+  {
+    "position": "1,6",
+    "color": "black",
+    "mainFunction": "CHS",
+    "f_secondaryFunction": "DATE",
+    "g_secondaryFunction": "RPN",
+    "isEnterKey": false
+  },
+  {
+    "position": "1,7",
+    "color": "black",
+    "mainFunction": "7",
+    "f_secondaryFunction": "BEG",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "1,8",
+    "color": "black",
+    "mainFunction": "8",
+    "f_secondaryFunction": "END",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "1,9",
+    "color": "black",
+    "mainFunction": "9",
+    "f_secondaryFunction": "MEM",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "1,10",
+    "color": "black",
+    "mainFunction": "÷",
+    "f_secondaryFunction": null,
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "2,1",
+    "color": "black",
+    "mainFunction": "yˆx",
+    "f_secondaryFunction": "√x",
+    "g_secondaryFunction": "PRICE",
+    "isEnterKey": false
+  },
+  {
+    "position": "2,2",
+    "color": "black",
+    "mainFunction": "1/x",
+    "f_secondaryFunction": "e^x",
+    "g_secondaryFunction": "YTM",
+    "isEnterKey": false
+  },
+  {
+    "position": "2,3",
+    "color": "black",
+    "mainFunction": "%T",
+    "f_secondaryFunction": "LN",
+    "g_secondaryFunction": "SL",
+    "isEnterKey": false
+  },
+  {
+    "position": "2,4",
+    "color": "black",
+    "mainFunction": "∆%",
+    "f_secondaryFunction": "FRAC",
+    "g_secondaryFunction": "SOYD",
+    "isEnterKey": false
+  },
+  {
+    "position": "2,5",
+    "color": "black",
+    "mainFunction": "%",
+    "f_secondaryFunction": "INTG",
+    "g_secondaryFunction": "DB",
+    "isEnterKey": false
+  },
+  {
+    "position": "2,6",
+    "color": "black",
+    "mainFunction": "EEX",
+    "f_secondaryFunction": "AIG",
+    "g_secondaryFunction": "ADYS",
+    "isEnterKey": false
+  },
+  {
+    "position": "2,7",
+    "color": "black",
+    "mainFunction": "4",
+    "f_secondaryFunction": "D.MY",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "2,8",
+    "color": "black",
+    "mainFunction": "5",
+    "f_secondaryFunction": "M.DY",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "2,9",
+    "color": "black",
+    "mainFunction": "6",
+    "f_secondaryFunction": "x̅w",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "2,10",
+    "color": "black",
+    "mainFunction": "x",
+    "f_secondaryFunction": "x^2",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "3,1",
+    "color": "black",
+    "mainFunction": "R/S",
+    "f_secondaryFunction": "PSE",
+    "g_secondaryFunction": "P/R",
+    "isEnterKey": false
+  },
+  {
+    "position": "3,2",
+    "color": "black",
+    "mainFunction": "SST",
+    "f_secondaryFunction": "BST",
+    "g_secondaryFunction": "Σ",
+    "isEnterKey": false
+  },
+  {
+    "position": "3,3",
+    "color": "black",
+    "mainFunction": "R↓",
+    "f_secondaryFunction": "GTO",
+    "g_secondaryFunction": "PRGM",
+    "isEnterKey": false
+  },
+  {
+    "position": "3,4",
+    "color": "black",
+    "mainFunction": "x<>y",
+    "f_secondaryFunction": "x<=y",
+    "g_secondaryFunction": "FIN",
+    "isEnterKey": false
+  },
+  {
+    "position": "3,5",
+    "color": "black",
+    "mainFunction": "CLx",
+    "f_secondaryFunction": "x-0",
+    "g_secondaryFunction": "REG",
+    "isEnterKey": false
+  },
+  {
+    "position": "3,6",
+    "color": "black",
+    "mainFunction": "ENTER",
+    "f_secondaryFunction": "LSTx",
+    "g_secondaryFunction": "PREFIX",
+    "isEnterKey": true
+  },
+  {
+    "position": "3,7",
+    "color": "black",
+    "mainFunction": "1",
+    "f_secondaryFunction": "x,r",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "3,8",
+    "color": "black",
+    "mainFunction": "2",
+    "f_secondaryFunction": "y,r",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "3,9",
+    "color": "black",
+    "mainFunction": "3",
+    "f_secondaryFunction": "n!",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "3,10",
+    "color": "black",
+    "mainFunction": "-",
+    "f_secondaryFunction": null,
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "4,1",
+    "color": "black",
+    "mainFunction": "ON",
+    "f_secondaryFunction": null,
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "4,2",
+    "color": "orange",
+    "mainFunction": "f",
+    "f_secondaryFunction": null,
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "4,3",
+    "color": "blue",
+    "mainFunction": "g",
+    "f_secondaryFunction": null,
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "4,4",
+    "color": "black",
+    "mainFunction": "STO",
+    "f_secondaryFunction": null,
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "4,5",
+    "color": "black",
+    "mainFunction": "RCL",
+    "f_secondaryFunction": null,
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "4,6",
+    "color": "black",
+    "mainFunction": "ENTER",
+    "f_secondaryFunction": "PREFIX",
+    "g_secondaryFunction": "LSTX",
+    "isEnterKey": true
+  },
+  {
+    "position": "4,7",
+    "color": "black",
+    "mainFunction": "0",
+    "f_secondaryFunction": "x",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "4,8",
+    "color": "black",
+    "mainFunction": ".",
+    "f_secondaryFunction": "s",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "4,9",
+    "color": "black",
+    "mainFunction": "Σ+",
+    "f_secondaryFunction": "Σ-",
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  },
+  {
+    "position": "4,10",
+    "color": "black",
+    "mainFunction": "+",
+    "f_secondaryFunction": null,
+    "g_secondaryFunction": null,
+    "isEnterKey": false
+  }
+]
