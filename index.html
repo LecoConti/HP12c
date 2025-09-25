@@ -447,6 +447,8 @@ class HP12C {
     this.decimalEntered = false;
     this.stoPending = false;
     this.rclPending = false;
+    this.preserveTopOnNextEntry = false;
+    this.skipNextEnterDuplicate = false;
     this.memoryRegisters = new Array(20).fill(0);
     this.tvm = {
       n: 0,
@@ -510,17 +512,30 @@ class HP12C {
   }
 
   enter() {
+    const shouldSkipDuplicate = this.entryActive && this.skipNextEnterDuplicate;
     this.commitEntry();
     this.stack[3] = this.stack[2];
     this.stack[2] = this.stack[1];
-    this.stack[1] = this.stack[0];
+    if (!shouldSkipDuplicate) {
+      this.stack[1] = this.stack[0];
+    }
     this.entryActive = false;
     this.decimalEntered = false;
+    this.skipNextEnterDuplicate = false;
     this.updateDisplay();
   }
 
   inputDigit(digit) {
     if (!this.entryActive) {
+      if (this.preserveTopOnNextEntry) {
+        this.stack[3] = this.stack[2];
+        this.stack[2] = this.stack[1];
+        this.stack[1] = this.stack[0];
+        this.preserveTopOnNextEntry = false;
+        this.skipNextEnterDuplicate = true;
+      } else {
+        this.skipNextEnterDuplicate = false;
+      }
       this.entryBuffer = '';
       this.entryActive = true;
     }
@@ -546,6 +561,7 @@ class HP12C {
   }
 
   performOperation(op) {
+    this.skipNextEnterDuplicate = false;
     this.commitEntry();
     const x = this.stack[0];
     const y = this.stack[1];
@@ -586,6 +602,7 @@ class HP12C {
       default:
         return;
     }
+    this.preserveTopOnNextEntry = true;
     this.updateDisplay();
   }
 
@@ -676,6 +693,8 @@ class HP12C {
     try {
       const result = this.solveTVM(target);
       this.stack[0] = result;
+      this.preserveTopOnNextEntry = true;
+      this.skipNextEnterDuplicate = false;
       this.updateDisplay();
     } catch (error) {
       this.displayError('Error');
