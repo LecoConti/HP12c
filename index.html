@@ -148,6 +148,12 @@ body {
   gap: clamp(6px, 1vw, 14px);
 }
 
+.key {
+  border-radius: clamp(4px, 0.8vw, 10px);
+  min-height: clamp(34px, 4.6vw, 64px);
+  position: relative;
+}
+
 button.key {
   border: none;
   border-radius: clamp(4px, 0.8vw, 10px);
@@ -155,12 +161,16 @@ button.key {
   color: #f0f0f0;
   font-size: clamp(11px, 1.3vw, 18px);
   font-weight: 600;
-  letter-spacing: 0.04em;
   position: relative;
   box-shadow: inset 0 -2px 0 rgba(255,255,255,0.12), inset 0 3px 12px rgba(0,0,0,0.6);
-  padding: clamp(6px, 0.8vw, 10px) clamp(6px, 0.9vw, 12px);
+  padding: clamp(8px, 1vw, 14px) clamp(8px, 1.1vw, 16px);
   cursor: pointer;
   transition: transform 0.05s ease, box-shadow 0.08s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(2px, 0.5vw, 6px);
 }
 
 button.key:active {
@@ -168,38 +178,63 @@ button.key:active {
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
 }
 
-button.key.secondary {
-  background: var(--hp-key-bg-secondary);
-}
-
-button.key.orange {
-  color: var(--hp-orange);
-}
-
-button.key.blue {
-  color: var(--hp-blue);
-}
-
-button.key.wide {
-  grid-column: span 2;
-}
-
-.key legend {
-  position: absolute;
-  top: 12%;
-  left: 10%;
-  font-size: clamp(7px, 0.8vw, 11px);
-  font-weight: 400;
-  color: var(--hp-orange);
-  pointer-events: none;
-}
-
-.key legend.blue {
-  color: var(--hp-blue);
-}
-
 .key .primary {
-  display: block;
+  font-size: clamp(12px, 1.4vw, 20px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  position: relative;
+  z-index: 1;
+}
+
+.key .legend {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  font-size: clamp(7px, 0.8vw, 11px);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.key .legend-f {
+  top: 10%;
+  color: var(--hp-orange);
+  text-align: left;
+}
+
+.key .legend-g {
+  bottom: 12%;
+  color: var(--hp-blue);
+  text-align: right;
+}
+
+.key.key-black {
+  background: var(--hp-key-bg);
+  color: #f4f4f4;
+}
+
+.key.key-orange {
+  background: linear-gradient(180deg, #fbb06a 0%, #f7882c 55%, #c26114 100%);
+  color: #1a0e00;
+  box-shadow: inset 0 -2px 0 rgba(255,255,255,0.35), inset 0 4px 14px rgba(0,0,0,0.4);
+}
+
+.key.key-blue {
+  background: linear-gradient(180deg, #8bc5ff 0%, #4aa3ff 55%, #1f62a9 100%);
+  color: #062347;
+  box-shadow: inset 0 -2px 0 rgba(255,255,255,0.35), inset 0 4px 14px rgba(0,0,0,0.35);
+}
+
+.key.enter .primary {
+  letter-spacing: 0.18em;
+}
+
+.key.key-empty {
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+  border-radius: clamp(4px, 0.8vw, 10px);
 }
 
 footer.signature {
@@ -243,71 +278,469 @@ footer.signature {
       </div>
     </div>
   </section>
-  <section class="keypad" aria-hidden="false">
-    <div class="key-row">
-      <button class="key secondary" data-action="f">f</button>
-      <button class="key secondary" data-action="g">g</button>
-      <button class="key" data-action="sto">STO</button>
-      <button class="key" data-action="rcl">RCL</button>
-      <button class="key" data-action="gto">GTO</button>
-      <button class="key" data-action="gsb">GSB</button>
-      <button class="key" data-action="sbr">SBR</button>
-      <button class="key" data-action="rst">R/S</button>
-      <button class="key" data-action="ssto">SST</button>
-      <button class="key" data-action="rst-step">RCL g</button>
-    </div>
-    <div class="key-row">
-      <button class="key orange" data-action="prefix-f">y<sup>x</sup></button>
-      <button class="key blue" data-action="prefix-g">1/x</button>
-      <button class="key" data-action="chs">CHS</button>
-      <button class="key" data-action="seven">7</button>
-      <button class="key" data-action="eight">8</button>
-      <button class="key" data-action="nine">9</button>
-      <button class="key" data-action="div">÷</button>
-      <button class="key" data-action="sqrt">√x</button>
-      <button class="key" data-action="percent">%</button>
-      <button class="key" data-action="clx">CLx</button>
-    </div>
-    <div class="key-row">
-      <button class="key orange" data-action="amort">AMORT</button>
-      <button class="key blue" data-action="depr">DEPR</button>
-      <button class="key" data-action="four">4</button>
-      <button class="key" data-action="five">5</button>
-      <button class="key" data-action="six">6</button>
-      <button class="key" data-action="mul">×</button>
-      <button class="key" data-action="rdown">R↓</button>
-      <button class="key" data-action="xchg">x↔y</button>
-      <button class="key" data-action="lastx">LASTx</button>
-      <button class="key" data-action="enter">ENTER</button>
-    </div>
-    <div class="key-row">
-      <button class="key orange" data-action="n">n</button>
-      <button class="key blue" data-action="i">i</button>
-      <button class="key" data-action="one">1</button>
-      <button class="key" data-action="two">2</button>
-      <button class="key" data-action="three">3</button>
-      <button class="key" data-action="minus">−</button>
-      <button class="key" data-action="pmt">PMT</button>
-      <button class="key" data-action="pv">PV</button>
-      <button class="key" data-action="fv">FV</button>
-      <button class="key" data-action="on">ON</button>
-    </div>
-    <div class="key-row">
-      <button class="key orange" data-action="gold-fv">BOND</button>
-      <button class="key blue" data-action="blue-pv">DATE</button>
-      <button class="key" data-action="zero">0</button>
-      <button class="key" data-action="double-zero">00</button>
-      <button class="key" data-action="decimal">.</button>
-      <button class="key" data-action="plus">+</button>
-      <button class="key" data-action="mem-plus">R+</button>
-      <button class="key" data-action="mem-minus">R−</button>
-      <button class="key" data-action="mem-clear">RCL Σ</button>
-      <button class="key" data-action="cl-reg">CL REG</button>
-    </div>
-  </section>
+  <section class="keypad" aria-hidden="false" id="keypad"></section>
   <footer class="signature">HP 12C • Platinum Edition</footer>
 </div>
 <script>
+const KEY_LAYOUT = [
+  {
+    position: '1,1',
+    color: 'black',
+    mainFunction: 'n',
+    f_secondaryFunction: '12x',
+    g_secondaryFunction: 'BOND',
+    isEnterKey: false
+  },
+  {
+    position: '1,2',
+    color: 'black',
+    mainFunction: 'i',
+    f_secondaryFunction: '12÷',
+    g_secondaryFunction: 'PRICE',
+    isEnterKey: false
+  },
+  {
+    position: '1,3',
+    color: 'black',
+    mainFunction: 'PV',
+    f_secondaryFunction: 'CFo',
+    g_secondaryFunction: 'YTM',
+    isEnterKey: false
+  },
+  {
+    position: '1,4',
+    color: 'black',
+    mainFunction: 'PMT',
+    f_secondaryFunction: 'CFj',
+    g_secondaryFunction: 'SL',
+    isEnterKey: false
+  },
+  {
+    position: '1,5',
+    color: 'black',
+    mainFunction: 'FV',
+    f_secondaryFunction: 'Nj',
+    g_secondaryFunction: 'SOYD',
+    isEnterKey: false
+  },
+  {
+    position: '1,6',
+    color: 'black',
+    mainFunction: 'RND',
+    f_secondaryFunction: null,
+    g_secondaryFunction: 'DB',
+    isEnterKey: false
+  },
+  {
+    position: '1,7',
+    color: 'black',
+    mainFunction: 'IRR',
+    f_secondaryFunction: 'RPN',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '1,8',
+    color: 'black',
+    mainFunction: 'CHS',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '1,9',
+    color: 'black',
+    mainFunction: 'DATE',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '2,1',
+    color: 'black',
+    mainFunction: 'yx',
+    f_secondaryFunction: 'x√',
+    g_secondaryFunction: 'PRGM',
+    isEnterKey: false
+  },
+  {
+    position: '2,2',
+    color: 'black',
+    mainFunction: '1/x',
+    f_secondaryFunction: 'e^x',
+    g_secondaryFunction: 'REG',
+    isEnterKey: false
+  },
+  {
+    position: '2,3',
+    color: 'black',
+    mainFunction: '%T',
+    f_secondaryFunction: 'LN',
+    g_secondaryFunction: 'CLEAR FIN',
+    isEnterKey: false
+  },
+  {
+    position: '2,4',
+    color: 'black',
+    mainFunction: '∆%',
+    f_secondaryFunction: 'frac',
+    g_secondaryFunction: 'Σ',
+    isEnterKey: false
+  },
+  {
+    position: '2,5',
+    color: 'black',
+    mainFunction: '%',
+    f_secondaryFunction: 'intg',
+    g_secondaryFunction: 'Σ+',
+    isEnterKey: false
+  },
+  {
+    position: '2,6',
+    color: 'black',
+    mainFunction: 'EEX',
+    f_secondaryFunction: null,
+    g_secondaryFunction: 'ADYS',
+    isEnterKey: false
+  },
+  {
+    position: '2,7',
+    color: 'black',
+    mainFunction: '4',
+    f_secondaryFunction: 'M.DY',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '2,8',
+    color: 'black',
+    mainFunction: '5',
+    f_secondaryFunction: 'D.MY',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '2,9',
+    color: 'black',
+    mainFunction: '6',
+    f_secondaryFunction: 'D.M',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '2,10',
+    color: 'black',
+    mainFunction: 'x',
+    f_secondaryFunction: 'x̅,r',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '3,1',
+    color: 'black',
+    mainFunction: 'R/S',
+    f_secondaryFunction: 'P/R',
+    g_secondaryFunction: 'PSE',
+    isEnterKey: false
+  },
+  {
+    position: '3,2',
+    color: 'black',
+    mainFunction: 'SST',
+    f_secondaryFunction: 'BST',
+    g_secondaryFunction: 'GTO',
+    isEnterKey: false
+  },
+  {
+    position: '3,3',
+    color: 'black',
+    mainFunction: 'R↓',
+    f_secondaryFunction: 'RST',
+    g_secondaryFunction: 'Σ',
+    isEnterKey: false
+  },
+  {
+    position: '3,4',
+    color: 'black',
+    mainFunction: 'x<>y',
+    f_secondaryFunction: 'x=0',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '3,5',
+    color: 'black',
+    mainFunction: 'CLx',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '3,6',
+    color: 'black',
+    mainFunction: '7',
+    f_secondaryFunction: 'BEG',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '3,7',
+    color: 'black',
+    mainFunction: '8',
+    f_secondaryFunction: 'END',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '3,8',
+    color: 'black',
+    mainFunction: '9',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '3,9',
+    color: 'black',
+    mainFunction: '÷',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '4,1',
+    color: 'orange',
+    mainFunction: 'f',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '4,2',
+    color: 'blue',
+    mainFunction: 'g',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '4,3',
+    color: 'black',
+    mainFunction: 'STO',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '4,4',
+    color: 'black',
+    mainFunction: 'RCL',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '4,5',
+    color: 'black',
+    mainFunction: 'ENTER',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: true
+  },
+  {
+    position: '4,6',
+    color: 'black',
+    mainFunction: '1',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '4,7',
+    color: 'black',
+    mainFunction: '2',
+    f_secondaryFunction: 'Σ-',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '4,8',
+    color: 'black',
+    mainFunction: '3',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '4,9',
+    color: 'black',
+    mainFunction: '-',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '5,1',
+    color: 'black',
+    mainFunction: 'ON',
+    f_secondaryFunction: 'OFF',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '5,2',
+    color: 'black',
+    mainFunction: '0',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '5,3',
+    color: 'black',
+    mainFunction: '.',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '5,4',
+    color: 'black',
+    mainFunction: 'Σ+',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '5,5',
+    color: 'black',
+    mainFunction: '∑',
+    f_secondaryFunction: '∑-',
+    g_secondaryFunction: null,
+    isEnterKey: false
+  },
+  {
+    position: '5,6',
+    color: 'black',
+    mainFunction: '+',
+    f_secondaryFunction: null,
+    g_secondaryFunction: null,
+    isEnterKey: false
+  }
+];
+
+const DISPLAY_OVERRIDES = {
+  yx: 'yˣ',
+  x: '×',
+  '-': '−',
+  'x<>y': 'x↔y'
+};
+
+const ACTION_OVERRIDES = {
+  n: 'n',
+  i: 'i',
+  PV: 'pv',
+  PMT: 'pmt',
+  FV: 'fv',
+  RND: 'rnd',
+  IRR: 'irr',
+  CHS: 'chs',
+  DATE: 'date',
+  yx: 'power',
+  '1/x': 'reciprocal',
+  '%T': 'percent-total',
+  '∆%': 'delta-percent',
+  '%': 'percent',
+  EEX: 'eex',
+  '4': 'four',
+  '5': 'five',
+  '6': 'six',
+  x: 'mul',
+  'R/S': 'rst',
+  SST: 'ssto',
+  'R↓': 'rdown',
+  'x<>y': 'xchg',
+  CLx: 'clx',
+  '7': 'seven',
+  '8': 'eight',
+  '9': 'nine',
+  '÷': 'div',
+  f: 'f',
+  g: 'g',
+  STO: 'sto',
+  RCL: 'rcl',
+  ENTER: 'enter',
+  '1': 'one',
+  '2': 'two',
+  '3': 'three',
+  '-': 'minus',
+  ON: 'on',
+  '0': 'zero',
+  '.': 'decimal',
+  '+': 'plus'
+};
+
+const ROW_COUNT = 5;
+const COLUMN_COUNT = 10;
+
+function createKeyElement(key) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.classList.add('key', `key-${key.color}`);
+  if (key.isEnterKey) {
+    button.classList.add('enter');
+  }
+
+  const action = ACTION_OVERRIDES[key.mainFunction];
+  if (action) {
+    button.dataset.action = action;
+  }
+
+  const primary = document.createElement('span');
+  primary.className = 'primary';
+  primary.textContent = DISPLAY_OVERRIDES[key.mainFunction] || key.mainFunction;
+  button.appendChild(primary);
+
+  if (key.f_secondaryFunction) {
+    const fLegend = document.createElement('span');
+    fLegend.className = 'legend legend-f';
+    fLegend.textContent = key.f_secondaryFunction;
+    button.appendChild(fLegend);
+  }
+
+  if (key.g_secondaryFunction) {
+    const gLegend = document.createElement('span');
+    gLegend.className = 'legend legend-g';
+    gLegend.textContent = key.g_secondaryFunction;
+    button.appendChild(gLegend);
+  }
+
+  return button;
+}
+
+function buildKeypadLayout(container) {
+  container.innerHTML = '';
+  const layoutMap = new Map(KEY_LAYOUT.map((key) => [key.position, key]));
+
+  for (let row = 1; row <= ROW_COUNT; row++) {
+    const rowEl = document.createElement('div');
+    rowEl.classList.add('key-row');
+
+    for (let col = 1; col <= COLUMN_COUNT; col++) {
+      const key = layoutMap.get(`${row},${col}`);
+      if (key) {
+        rowEl.appendChild(createKeyElement(key));
+      } else {
+        const placeholder = document.createElement('div');
+        placeholder.classList.add('key', 'key-empty');
+        rowEl.appendChild(placeholder);
+      }
+    }
+
+    container.appendChild(rowEl);
+  }
+}
+
 class HP12C {
   constructor(displayEl, statusLeft, statusRight) {
     this.displayEl = displayEl;
@@ -691,95 +1124,99 @@ const numberMap = {
 
 const keypad = document.querySelector('.keypad');
 
-keypad.addEventListener('click', (event) => {
-  const button = event.target.closest('button');
-  if (!button) return;
+if (keypad) {
+  buildKeypadLayout(keypad);
 
-  const action = button.dataset.action;
-  if (!action) return;
+  keypad.addEventListener('click', (event) => {
+    const button = event.target.closest('button');
+    if (!button) return;
 
-  if (action in numberMap) {
-    const digit = numberMap[action];
-    if (digit === '00') {
-      calculator.inputDigit('0');
-      calculator.inputDigit('0');
-    } else {
-      calculator.inputDigit(digit);
+    const action = button.dataset.action;
+    if (!action) return;
+
+    if (action in numberMap) {
+      const digit = numberMap[action];
+      if (digit === '00') {
+        calculator.inputDigit('0');
+        calculator.inputDigit('0');
+      } else {
+        calculator.inputDigit(digit);
+      }
+      return;
     }
-    return;
-  }
 
-  switch (action) {
-    case 'decimal':
-      calculator.inputDigit('.');
-      break;
-    case 'chs':
-      calculator.toggleSign();
-      break;
-    case 'enter':
-      calculator.enter();
-      break;
-    case 'plus':
-      calculator.performOperation('+');
-      break;
-    case 'minus':
-      calculator.performOperation('-');
-      break;
-    case 'mul':
-      calculator.performOperation('*');
-      break;
-    case 'div':
-      calculator.performOperation('/');
-      break;
-    case 'clx':
-      calculator.clearX();
-      break;
-    case 'xchg':
-      calculator.swapXY();
-      break;
-    case 'lastx':
-      calculator.recallLastX();
-      break;
-    case 'rdown':
-      calculator.stackRollDown();
-      break;
-    case 'mem-clear':
-      calculator.clearRegisters();
-      break;
-    case 'sto':
-      calculator.stoPending = true;
-      calculator.rclPending = false;
-      calculator.updateStatus();
-      break;
-    case 'rcl':
-      calculator.rclPending = true;
-      calculator.stoPending = false;
-      calculator.updateStatus();
-      break;
-    case 'mem-plus':
-      calculator.stoPending = false;
-      calculator.rclPending = false;
-      calculator.memoryPlus(0);
-      calculator.updateStatus();
-      break;
-    case 'mem-minus':
-      calculator.stoPending = false;
-      calculator.rclPending = false;
-      calculator.memoryMinus(0);
-      calculator.updateStatus();
-      break;
-    case 'pmt':
-    case 'pv':
-    case 'fv':
-    case 'n':
-    case 'i':
-      handleTVM(action);
-      break;
-    default:
-      handleSpecial(action);
-      break;
-  }
-});
+    switch (action) {
+      case 'decimal':
+        calculator.inputDigit('.');
+        break;
+      case 'chs':
+        calculator.toggleSign();
+        break;
+      case 'enter':
+        calculator.enter();
+        break;
+      case 'plus':
+        calculator.performOperation('+');
+        break;
+      case 'minus':
+        calculator.performOperation('-');
+        break;
+      case 'mul':
+        calculator.performOperation('*');
+        break;
+      case 'div':
+        calculator.performOperation('/');
+        break;
+      case 'clx':
+        calculator.clearX();
+        break;
+      case 'xchg':
+        calculator.swapXY();
+        break;
+      case 'lastx':
+        calculator.recallLastX();
+        break;
+      case 'rdown':
+        calculator.stackRollDown();
+        break;
+      case 'mem-clear':
+        calculator.clearRegisters();
+        break;
+      case 'sto':
+        calculator.stoPending = true;
+        calculator.rclPending = false;
+        calculator.updateStatus();
+        break;
+      case 'rcl':
+        calculator.rclPending = true;
+        calculator.stoPending = false;
+        calculator.updateStatus();
+        break;
+      case 'mem-plus':
+        calculator.stoPending = false;
+        calculator.rclPending = false;
+        calculator.memoryPlus(0);
+        calculator.updateStatus();
+        break;
+      case 'mem-minus':
+        calculator.stoPending = false;
+        calculator.rclPending = false;
+        calculator.memoryMinus(0);
+        calculator.updateStatus();
+        break;
+      case 'pmt':
+      case 'pv':
+      case 'fv':
+      case 'n':
+      case 'i':
+        handleTVM(action);
+        break;
+      default:
+        handleSpecial(action);
+        break;
+    }
+  });
+}
 
 function handleTVM(key) {
   const keyMap = { n: 'n', i: 'i', pv: 'pv', pmt: 'pmt', fv: 'fv' };
