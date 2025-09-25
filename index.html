@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HP 12C</title>
+<style>
+:root {
+  color-scheme: only light;
+  --body-bg: #1c1c1c;
+  --hp-chassis: #242424;
+  --hp-chassis-dark: #171717;
+  --hp-metal: linear-gradient(180deg, #d1d1d1 0%, #aaaaaa 100%);
+  --hp-brand: #202020;
+  --hp-orange: #f7882c;
+  --hp-blue: #4aa3ff;
+  --hp-key-bg: #1d1d1d;
+  --hp-key-bg-secondary: #292929;
+  --hp-key-border: #0c0c0c;
+  --display-bg: #ccd3c9;
+  --display-glass: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.15) 35%, rgba(0,0,0,0.05) 100%);
+  --font-primary: 'Roboto', 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #343434 0%, #111 80%);
+  font-family: var(--font-primary);
+}
+
+.hp12c {
+  width: min(95vw, 980px);
+  aspect-ratio: 1.95/1;
+  background: var(--hp-chassis-dark);
+  border-radius: min(3vw, 26px);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  padding: min(2.2vw, 26px);
+  display: flex;
+  flex-direction: column;
+  gap: min(1.2vw, 16px);
+  position: relative;
+}
+
+.hp12c::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(0,0,0,0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: min(3vw, 42px);
+  background: var(--hp-metal);
+  padding: min(1.4vw, 18px);
+  border-radius: min(2vw, 20px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2);
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 45%, rgba(0,0,0,0.2) 100%);
+  pointer-events: none;
+}
+
+.brand {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: clamp(10px, 1.2vw, 18px);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.brand span:first-child {
+  font-size: 1.1em;
+  letter-spacing: 0.16em;
+}
+
+.display {
+  flex: 1;
+  background: var(--display-bg);
+  border-radius: min(1.2vw, 16px);
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.45), inset 0 -6px 18px rgba(0,0,0,0.3);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(8px, 1.6vw, 22px) clamp(16px, 2.4vw, 30px);
+}
+
+.display::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--display-glass);
+  pointer-events: none;
+}
+
+.display-content {
+  font-family: 'LCDMono', 'Courier New', monospace;
+  font-size: clamp(28px, 4.2vw, 58px);
+  text-align: right;
+  letter-spacing: 0.08em;
+  color: #1c260f;
+  position: relative;
+  z-index: 1;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: clamp(4px, 0.6vw, 10px);
+  font-size: clamp(8px, 1vw, 12px);
+  color: rgba(0,0,0,0.65);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.12em;
+}
+
+.keypad {
+  flex: 1;
+  background: var(--hp-chassis);
+  border-radius: min(2vw, 20px);
+  padding: clamp(10px, 2vw, 30px);
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.8);
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  gap: clamp(6px, 1vw, 14px);
+}
+
+.key-row {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: clamp(6px, 1vw, 14px);
+}
+
+button.key {
+  border: none;
+  border-radius: clamp(4px, 0.8vw, 10px);
+  background: var(--hp-key-bg);
+  color: #f0f0f0;
+  font-size: clamp(11px, 1.3vw, 18px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  position: relative;
+  box-shadow: inset 0 -2px 0 rgba(255,255,255,0.12), inset 0 3px 12px rgba(0,0,0,0.6);
+  padding: clamp(6px, 0.8vw, 10px) clamp(6px, 0.9vw, 12px);
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.08s ease;
+}
+
+button.key:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+}
+
+button.key.secondary {
+  background: var(--hp-key-bg-secondary);
+}
+
+button.key.orange {
+  color: var(--hp-orange);
+}
+
+button.key.blue {
+  color: var(--hp-blue);
+}
+
+button.key.wide {
+  grid-column: span 2;
+}
+
+.key legend {
+  position: absolute;
+  top: 12%;
+  left: 10%;
+  font-size: clamp(7px, 0.8vw, 11px);
+  font-weight: 400;
+  color: var(--hp-orange);
+  pointer-events: none;
+}
+
+.key legend.blue {
+  color: var(--hp-blue);
+}
+
+.key .primary {
+  display: block;
+}
+
+footer.signature {
+  text-align: center;
+  font-size: clamp(10px, 1vw, 14px);
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.2em;
+}
+
+@media (max-width: 720px) {
+  body {
+    padding: 16px 0;
+  }
+  .hp12c {
+    width: 96vw;
+  }
+  .display-content {
+    font-size: clamp(24px, 7vw, 44px);
+  }
+}
+
+@font-face {
+  font-family: 'LCDMono';
+  src: local('DSEG7 Classic'), local('Digital-7');
+  font-display: swap;
+}
+</style>
+</head>
+<body>
+<div class="hp12c" role="application" aria-label="HP12C Calculator">
+  <section class="header">
+    <div class="brand">
+      <span>Hewlett-Packard</span>
+      <span>hp 12c platinum</span>
+    </div>
+    <div class="display" aria-live="polite">
+      <div class="display-content" id="display">0.00</div>
+      <div class="status-bar">
+        <span id="status-left">F</span>
+        <span id="status-right">G</span>
+      </div>
+    </div>
+  </section>
+  <section class="keypad" aria-hidden="false">
+    <div class="key-row">
+      <button class="key secondary" data-action="f">f</button>
+      <button class="key secondary" data-action="g">g</button>
+      <button class="key" data-action="sto">STO</button>
+      <button class="key" data-action="rcl">RCL</button>
+      <button class="key" data-action="gto">GTO</button>
+      <button class="key" data-action="gsb">GSB</button>
+      <button class="key" data-action="sbr">SBR</button>
+      <button class="key" data-action="rst">R/S</button>
+      <button class="key" data-action="ssto">SST</button>
+      <button class="key" data-action="rst-step">RCL g</button>
+    </div>
+    <div class="key-row">
+      <button class="key orange" data-action="prefix-f">y<sup>x</sup></button>
+      <button class="key blue" data-action="prefix-g">1/x</button>
+      <button class="key" data-action="chs">CHS</button>
+      <button class="key" data-action="seven">7</button>
+      <button class="key" data-action="eight">8</button>
+      <button class="key" data-action="nine">9</button>
+      <button class="key" data-action="div">÷</button>
+      <button class="key" data-action="sqrt">√x</button>
+      <button class="key" data-action="percent">%</button>
+      <button class="key" data-action="clx">CLx</button>
+    </div>
+    <div class="key-row">
+      <button class="key orange" data-action="amort">AMORT</button>
+      <button class="key blue" data-action="depr">DEPR</button>
+      <button class="key" data-action="four">4</button>
+      <button class="key" data-action="five">5</button>
+      <button class="key" data-action="six">6</button>
+      <button class="key" data-action="mul">×</button>
+      <button class="key" data-action="rdown">R↓</button>
+      <button class="key" data-action="xchg">x↔y</button>
+      <button class="key" data-action="lastx">LASTx</button>
+      <button class="key" data-action="enter">ENTER</button>
+    </div>
+    <div class="key-row">
+      <button class="key orange" data-action="n">n</button>
+      <button class="key blue" data-action="i">i</button>
+      <button class="key" data-action="one">1</button>
+      <button class="key" data-action="two">2</button>
+      <button class="key" data-action="three">3</button>
+      <button class="key" data-action="minus">−</button>
+      <button class="key" data-action="pmt">PMT</button>
+      <button class="key" data-action="pv">PV</button>
+      <button class="key" data-action="fv">FV</button>
+      <button class="key" data-action="on">ON</button>
+    </div>
+    <div class="key-row">
+      <button class="key orange" data-action="gold-fv">BOND</button>
+      <button class="key blue" data-action="blue-pv">DATE</button>
+      <button class="key" data-action="zero">0</button>
+      <button class="key" data-action="double-zero">00</button>
+      <button class="key" data-action="decimal">.</button>
+      <button class="key" data-action="plus">+</button>
+      <button class="key" data-action="mem-plus">R+</button>
+      <button class="key" data-action="mem-minus">R−</button>
+      <button class="key" data-action="mem-clear">RCL Σ</button>
+      <button class="key" data-action="cl-reg">CL REG</button>
+    </div>
+  </section>
+  <footer class="signature">HP 12C • Platinum Edition</footer>
+</div>
+<script>
+class HP12C {
+  constructor(displayEl, statusLeft, statusRight) {
+    this.displayEl = displayEl;
+    this.statusLeftEl = statusLeft;
+    this.statusRightEl = statusRight;
+    this.reset();
+  }
+
+  reset() {
+    this.stack = [0, 0, 0, 0]; // X, Y, Z, T
+    this.lastX = 0;
+    this.entryBuffer = '';
+    this.entryActive = false;
+    this.decimalEntered = false;
+    this.stoPending = false;
+    this.rclPending = false;
+    this.memoryRegisters = new Array(20).fill(0);
+    this.tvm = {
+      n: 0,
+      i: 0,
+      pv: 0,
+      pmt: 0,
+      fv: 0
+    };
+    this.updateDisplay();
+    this.updateStatus();
+  }
+
+  updateStatus() {
+    this.statusLeftEl.classList.toggle('active', this.stoPending);
+    this.statusLeftEl.textContent = this.stoPending ? 'STO' : 'F';
+    this.statusRightEl.classList.toggle('active', this.rclPending);
+    this.statusRightEl.textContent = this.rclPending ? 'RCL' : 'G';
+  }
+
+  commitEntry() {
+    if (this.entryActive) {
+      const value = this.parseEntryBuffer();
+      this.stack[0] = value;
+      this.entryActive = false;
+      this.decimalEntered = this.entryBuffer.includes('.');
+      this.entryBuffer = '';
+      return value;
+    }
+    return this.stack[0];
+  }
+
+  parseEntryBuffer() {
+    if (!this.entryBuffer || this.entryBuffer === '-' || this.entryBuffer === '.') {
+      return 0;
+    }
+    return parseFloat(this.entryBuffer);
+  }
+
+  pushStack(value) {
+    this.stack[3] = this.stack[2];
+    this.stack[2] = this.stack[1];
+    this.stack[1] = this.stack[0];
+    this.stack[0] = value;
+  }
+
+  stackRollDown() {
+    const temp = this.stack[0];
+    this.stack[0] = this.stack[1];
+    this.stack[1] = this.stack[2];
+    this.stack[2] = this.stack[3];
+    this.stack[3] = temp;
+    this.updateDisplay();
+  }
+
+  stackRollUp() {
+    const temp = this.stack[3];
+    this.stack[3] = this.stack[2];
+    this.stack[2] = this.stack[1];
+    this.stack[1] = this.stack[0];
+    this.stack[0] = temp;
+  }
+
+  enter() {
+    this.commitEntry();
+    this.stack[3] = this.stack[2];
+    this.stack[2] = this.stack[1];
+    this.stack[1] = this.stack[0];
+    this.entryActive = false;
+    this.decimalEntered = false;
+    this.updateDisplay();
+  }
+
+  inputDigit(digit) {
+    if (!this.entryActive) {
+      this.entryBuffer = '';
+      this.entryActive = true;
+    }
+    if (digit === '.' && this.entryBuffer.includes('.')) {
+      return;
+    }
+    this.entryBuffer += digit;
+    this.updateDisplay(this.entryBuffer || '0');
+  }
+
+  toggleSign() {
+    if (this.entryActive) {
+      if (this.entryBuffer.startsWith('-')) {
+        this.entryBuffer = this.entryBuffer.slice(1);
+      } else {
+        this.entryBuffer = '-' + this.entryBuffer;
+      }
+      this.updateDisplay(this.entryBuffer || '0');
+    } else {
+      this.stack[0] = -this.stack[0];
+      this.updateDisplay();
+    }
+  }
+
+  performOperation(op) {
+    this.commitEntry();
+    const x = this.stack[0];
+    const y = this.stack[1];
+    let result = 0;
+    switch (op) {
+      case '+':
+        result = y + x;
+        this.lastX = x;
+        this.stack[0] = result;
+        this.stack[1] = this.stack[2];
+        this.stack[2] = this.stack[3];
+        break;
+      case '-':
+        result = y - x;
+        this.lastX = x;
+        this.stack[0] = result;
+        this.stack[1] = this.stack[2];
+        this.stack[2] = this.stack[3];
+        break;
+      case '*':
+        result = y * x;
+        this.lastX = x;
+        this.stack[0] = result;
+        this.stack[1] = this.stack[2];
+        this.stack[2] = this.stack[3];
+        break;
+      case '/':
+        if (x === 0) {
+          this.displayError('Error');
+          return;
+        }
+        result = y / x;
+        this.lastX = x;
+        this.stack[0] = result;
+        this.stack[1] = this.stack[2];
+        this.stack[2] = this.stack[3];
+        break;
+      default:
+        return;
+    }
+    this.updateDisplay();
+  }
+
+  clearX() {
+    if (this.entryActive) {
+      this.entryBuffer = '';
+      this.updateDisplay('0');
+    } else {
+      this.stack[0] = 0;
+      this.updateDisplay();
+    }
+  }
+
+  clearRegisters() {
+    this.memoryRegisters.fill(0);
+    this.tvm = { n: 0, i: 0, pv: 0, pmt: 0, fv: 0 };
+    this.updateDisplay();
+  }
+
+  swapXY() {
+    this.commitEntry();
+    [this.stack[0], this.stack[1]] = [this.stack[1], this.stack[0]];
+    this.updateDisplay();
+  }
+
+  recallLastX() {
+    this.stack[0] = this.lastX;
+    this.updateDisplay();
+  }
+
+  handleSTO(register) {
+    this.memoryRegisters[register] = this.commitEntry();
+    this.stoPending = false;
+    this.updateStatus();
+  }
+
+  handleRCL(register) {
+    this.stack[0] = this.memoryRegisters[register] || 0;
+    this.rclPending = false;
+    this.updateStatus();
+    this.updateDisplay();
+  }
+
+  memoryPlus(register) {
+    this.memoryRegisters[register] = (this.memoryRegisters[register] || 0) + this.commitEntry();
+  }
+
+  memoryMinus(register) {
+    this.memoryRegisters[register] = (this.memoryRegisters[register] || 0) - this.commitEntry();
+  }
+
+  updateDisplay(value) {
+    if (value !== undefined) {
+      this.displayEl.textContent = this.formatDisplay(value);
+      return;
+    }
+    this.displayEl.textContent = this.formatDisplay(this.entryActive ? (this.entryBuffer || '0') : this.stack[0]);
+  }
+
+  formatDisplay(value) {
+    if (typeof value === 'string') {
+      return value;
+    }
+    if (!Number.isFinite(value)) {
+      return 'Error';
+    }
+    const absValue = Math.abs(value);
+    const sign = value < 0 ? '-' : '';
+    const precision = 2;
+    if (absValue >= 1e9 || (absValue > 0 && absValue < 1e-6)) {
+      const exp = value.toExponential(5);
+      return exp.replace('e', 'E');
+    }
+    return sign + Math.abs(value).toFixed(precision);
+  }
+
+  displayError(message) {
+    this.displayEl.textContent = message;
+  }
+
+  registerTVM(key) {
+    const value = this.commitEntry();
+    this.tvm[key] = value;
+    this.updateDisplay();
+  }
+
+  computeTVM(target) {
+    try {
+      const result = this.solveTVM(target);
+      this.stack[0] = result;
+      this.updateDisplay();
+    } catch (error) {
+      this.displayError('Error');
+    }
+  }
+
+  solveTVM(target) {
+    const n = this.tvm.n;
+    const pv = this.tvm.pv;
+    const pmt = this.tvm.pmt;
+    const fv = this.tvm.fv;
+    const iPercent = this.tvm.i;
+    const iRate = iPercent / 100;
+
+    if (target === 'n') {
+      const rate = iRate;
+      if (Math.abs(rate) < 1e-10) {
+        if (pmt === 0) {
+          throw new Error('Undefined');
+        }
+        return -(fv + pv) / pmt;
+      }
+      const numerator = pmt - fv * rate;
+      const denominator = pv * rate + pmt;
+      if (numerator <= 0 || denominator <= 0) {
+        throw new Error('Invalid values');
+      }
+      return Math.log(numerator / denominator) / Math.log(1 + rate);
+    }
+
+    if (target === 'i') {
+      return this.solveRate({ n, pv, pmt, fv }) * 100;
+    }
+
+    if (target === 'pv') {
+      if (Math.abs(iRate) < 1e-10) {
+        return -(fv + pmt * n);
+      }
+      const factor = Math.pow(1 + iRate, n);
+      return -(fv + pmt * (factor - 1) / iRate) / factor;
+    }
+
+    if (target === 'pmt') {
+      if (n === 0) {
+        throw new Error('Invalid n');
+      }
+      if (Math.abs(iRate) < 1e-10) {
+        return -(fv + pv) / n;
+      }
+      const factor = Math.pow(1 + iRate, n);
+      return -(fv + pv * factor) * iRate / (factor - 1);
+    }
+
+    if (target === 'fv') {
+      if (Math.abs(iRate) < 1e-10) {
+        return -(pv + pmt * n);
+      }
+      const factor = Math.pow(1 + iRate, n);
+      return -pv * factor - pmt * (factor - 1) / iRate;
+    }
+
+    throw new Error('Unknown target');
+  }
+
+  solveRate({ n, pv, pmt, fv }) {
+    if (n === 0) {
+      throw new Error('Invalid n');
+    }
+    const func = (rate) => {
+      if (Math.abs(rate) < 1e-10) {
+        return pv + pmt * n + fv;
+      }
+      const factor = Math.pow(1 + rate, n);
+      return pv * factor + pmt * (factor - 1) / rate + fv;
+    };
+
+    let lower = -0.999999;
+    let upper = 0.2;
+    let fLower = func(lower);
+    let fUpper = func(upper);
+    let iterations = 0;
+
+    while (fLower * fUpper > 0 && iterations < 50) {
+      upper += upper >= 0 ? Math.max(0.2, upper) : 0.2;
+      if (upper > 10) {
+        break;
+      }
+      fUpper = func(upper);
+      iterations++;
+    }
+
+    if (fLower * fUpper > 0) {
+      upper = 10;
+      fUpper = func(upper);
+      if (fLower * fUpper > 0) {
+        throw new Error('No root');
+      }
+    }
+
+    for (let i = 0; i < 100; i++) {
+      const mid = (lower + upper) / 2;
+      const fMid = func(mid);
+      if (Math.abs(fMid) < 1e-12) {
+        return mid;
+      }
+      if (fLower * fMid < 0) {
+        upper = mid;
+        fUpper = fMid;
+      } else {
+        lower = mid;
+        fLower = fMid;
+      }
+    }
+    return (lower + upper) / 2;
+  }
+}
+
+const display = document.getElementById('display');
+const statusLeft = document.getElementById('status-left');
+const statusRight = document.getElementById('status-right');
+const calculator = new HP12C(display, statusLeft, statusRight);
+
+const numberMap = {
+  zero: '0',
+  one: '1',
+  two: '2',
+  three: '3',
+  four: '4',
+  five: '5',
+  six: '6',
+  seven: '7',
+  eight: '8',
+  nine: '9',
+  'double-zero': '00'
+};
+
+const keypad = document.querySelector('.keypad');
+
+keypad.addEventListener('click', (event) => {
+  const button = event.target.closest('button');
+  if (!button) return;
+
+  const action = button.dataset.action;
+  if (!action) return;
+
+  if (action in numberMap) {
+    const digit = numberMap[action];
+    if (digit === '00') {
+      calculator.inputDigit('0');
+      calculator.inputDigit('0');
+    } else {
+      calculator.inputDigit(digit);
+    }
+    return;
+  }
+
+  switch (action) {
+    case 'decimal':
+      calculator.inputDigit('.');
+      break;
+    case 'chs':
+      calculator.toggleSign();
+      break;
+    case 'enter':
+      calculator.enter();
+      break;
+    case 'plus':
+      calculator.performOperation('+');
+      break;
+    case 'minus':
+      calculator.performOperation('-');
+      break;
+    case 'mul':
+      calculator.performOperation('*');
+      break;
+    case 'div':
+      calculator.performOperation('/');
+      break;
+    case 'clx':
+      calculator.clearX();
+      break;
+    case 'xchg':
+      calculator.swapXY();
+      break;
+    case 'lastx':
+      calculator.recallLastX();
+      break;
+    case 'rdown':
+      calculator.stackRollDown();
+      break;
+    case 'mem-clear':
+      calculator.clearRegisters();
+      break;
+    case 'sto':
+      calculator.stoPending = true;
+      calculator.rclPending = false;
+      calculator.updateStatus();
+      break;
+    case 'rcl':
+      calculator.rclPending = true;
+      calculator.stoPending = false;
+      calculator.updateStatus();
+      break;
+    case 'mem-plus':
+      calculator.stoPending = false;
+      calculator.rclPending = false;
+      calculator.memoryPlus(0);
+      calculator.updateStatus();
+      break;
+    case 'mem-minus':
+      calculator.stoPending = false;
+      calculator.rclPending = false;
+      calculator.memoryMinus(0);
+      calculator.updateStatus();
+      break;
+    case 'pmt':
+    case 'pv':
+    case 'fv':
+    case 'n':
+    case 'i':
+      handleTVM(action);
+      break;
+    default:
+      handleSpecial(action);
+      break;
+  }
+});
+
+function handleTVM(key) {
+  const keyMap = { n: 'n', i: 'i', pv: 'pv', pmt: 'pmt', fv: 'fv' };
+  const register = keyMap[key];
+  if (calculator.entryActive) {
+    calculator.registerTVM(register);
+    calculator.tvm[register] = calculator.stack[0];
+    if (register === 'i') {
+      calculator.tvm.i = calculator.stack[0];
+    }
+  } else {
+    calculator.computeTVM(register);
+    calculator.tvm[register] = calculator.stack[0];
+  }
+}
+
+function handleSpecial(action) {
+  const digitKeys = ['zero','one','two','three','four','five','six','seven','eight','nine'];
+  if (calculator.stoPending || calculator.rclPending) {
+    if (digitKeys.includes(action)) {
+      const register = parseInt(numberMap[action], 10);
+      if (calculator.stoPending) {
+        calculator.handleSTO(register);
+      } else {
+        calculator.handleRCL(register);
+      }
+      return;
+    }
+  }
+  console.warn(`${action} not implemented yet.`);
+}
+</script>
+</body>
+</html>
